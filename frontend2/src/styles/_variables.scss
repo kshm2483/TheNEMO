@@ -1,0 +1,24 @@
+$primary: orangered;
+$secondary: aqua;
+$mono : #2E2E2E;
+$white: #ffffff;
+$trans: #ffffff00;
+
+#app {
+  user-select: none;
+}
+
+:root{
+    --color-primary: #{$primary};
+    --data-color-secondary: #{$secondary};
+  }
+.flexCenter {
+  padding: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__sign{
+    height: 100vh;
+  }
+}

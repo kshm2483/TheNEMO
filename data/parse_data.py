@@ -57,6 +57,7 @@ def create_ratings(num_users):
     request_data = {'ratings': []}
     for i, line in enumerate(rating_data.readlines()):
         [UserID, MovieID, Rating, Timestamp] = line.split('::')
+        print([UserID, MovieID, Rating, Timestamp])
         request_data['ratings'].append({
             'userid': int(UserID),
             'movieid': int(MovieID),
@@ -68,7 +69,7 @@ def create_ratings(num_users):
             break
 
     response = requests.post(API_URL + 'ratings/', data=json.dumps(request_data), headers=headers)
-    print(response.text)
+    # print(response.text)
 
 def setupCluster():
     requests.post(API_URL + 'cluster/', headers=headers)

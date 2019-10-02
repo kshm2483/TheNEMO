@@ -1,0 +1,136 @@
+// MoviePage.vue
+.moviePage {
+  margin: {
+    top: 10vh;
+  }
+}
+// MovieList.vue
+.movieList {
+  height: 54vh;
+  overflow: hidden;
+  margin: {
+    bottom: 1vh;
+  }
+  p {
+    color: $white;
+    text-align: left;
+    font-weight: 700;
+    font-size: 24px;
+    padding: {
+      left: 10em;
+    }
+  }
+}
+.pageBtn {
+  color: $white;
+  background: $trans;
+  height: 43vh;
+  position: relative;
+  border:none;
+  outline:none;
+  transition: .5s ease all;
+  cursor:pointer;
+  &:disabled {
+    opacity: 0;
+    cursor: default;
+  }
+  &__prev {
+    top: 3vh;
+    right: 46.838vw;
+      &:hover{
+        background: linear-gradient(to left, rgba(70, 70, 70, 0), rgba(0, 0, 0, 0.8));
+        color: $white;
+      }
+  }
+  &__next {
+    top: 3vh;
+    left: 46.838vw;
+      &:hover{
+        background: linear-gradient(to right, rgba(70, 70, 70, 0), rgba(0, 0, 0, 0.8));
+        color:$white;
+      }
+  }
+}
+
+// MovieImg.vue
+.movieImg {
+  display: inline;
+  &__score {
+    display: inline;
+    position: relative;
+  }
+  img {
+    height: 43vh;
+    width: auto;
+    margin: {
+      left: 5px;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .selectedMovie {
+    border: 2px solid $white;
+    height: 42.5vh !important;
+    width: 29.5vh !important;
+  }
+}
+// MovieCard.vue
+.movieItem {
+  height: 70vh;
+  // background: rgb(100, 97, 97);
+  display: flex;
+  justify-content: space-between;
+  margin: {
+    top: 10px;
+  }
+  button {
+    border:none;
+    outline:none;
+    height: 10vh;
+    width: 10vh;
+    background: none;
+  }
+}
+.movieInfo {
+  height: 70vh;
+  width: 35vw;
+  background: linear-gradient(to right, rgb(0, 0, 0), rgba(70, 70, 70, 0));
+  color: $white;
+  h1 {
+    text-align: left;
+    overflow: hidden;
+    color: $white;
+    margin: {
+      top: 0px;
+      left: 30px;
+    }
+  }
+}
+.movieBackImg {
+  width: 100%;
+}
+.movieBtnGroups {
+  position: absolute;
+  left: 35%;
+  bottom: -35.25%;
+  // height: 10vh;
+  button {
+    width: 10vw;
+    color: $white;
+  }
+  .activate {
+    font-weight: 900;
+    border: {
+      bottom: 5px solid red;
+    }
+  }
+}
+.movieClose {
+  position: absolute;
+  right: 0;
+  width: 4vw;
+  height: 4vw;
+  z-index: 101;
+  line-height: 4vw;
+}

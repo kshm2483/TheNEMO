@@ -1,0 +1,93 @@
+
+.filler {
+    position: absolute;
+    width: 500px;
+    height: 800px;
+    background-color: #151515;
+    padding: var(--space-xl);
+    border-radius: var(--radius-sm);
+    padding-top: 55px;
+  }
+  
+  .flex {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .LoginForm {
+      &__Input{
+      margin-top: var(--space-sm);
+      padding: var(--space-xs);
+      border-radius: calc(0.3 * var(--radius-sm));
+      border: none;
+  
+      background-color:grey;
+      width: 480px;
+      height: 30px;
+  
+      color: white;
+      font-size: 25px;
+  
+      }
+  
+      &__Drop {
+        margin-top: var(--space-sm);
+        padding: var(--space-xs);
+        border-radius: calc(0.3 * var(--radius-sm));
+        border: none;
+  
+        background-color:grey;
+        width: 500px;
+        height: 50px;
+  
+        color: white;
+        font-size: 25px ;
+      }
+  
+      &__Header {
+        text-align: start;
+        font-size: 2em;
+        font-weight: 700;
+        color: white;
+      }
+  
+      &__btn {
+        width: 470px;
+      }
+  
+      &__SignUp {
+        display: inline;
+        margin-top: var(--space-sm);
+  
+        font-size: 0.8em;
+        color: white;
+      }
+  
+      &__SignUp:hover {
+        cursor: pointer;
+      }
+      &__Err {
+        border: 1px solid red;
+      }
+      &__Err:focus {
+        outline: 1px solid red;
+      }
+  }
+  
+  .checkText {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: var(--space-xxxs);
+    margin-bottom: 0px;
+  
+    font-size: 13px;
+    color: orangered;
+  }
+  
+  // CSS transition
+  .signFade-enter-active, .signFade-leave-active {
+    transition: all 0.3s ease ;
+  }
+  .signFade-enter, .signFade-leave-active {
+    opacity: 0;
+  }

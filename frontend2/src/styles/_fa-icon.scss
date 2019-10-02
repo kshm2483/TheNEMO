@@ -1,0 +1,32 @@
+// search
+.fa-search {
+  color: $white;
+  margin: {
+    top: 1.4vh;
+    right: 2vh;
+  }
+  font: {
+    size: 3.2vh;
+  }
+  &:hover {
+    cursor: pointer;
+    color: $primary;
+  }
+}
+// angle-left
+.fa-angle {
+  &-left {
+    font-size: 7vh;
+  }
+  &-right {
+    font-size: 7vh;
+  }
+}
+// fa-times
+.fa-times {
+  font-size: 2vw;
+  color: $white;
+  &:hover {
+    cursor: pointer;
+  }
+}

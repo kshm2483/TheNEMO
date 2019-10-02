@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 # 평점 range 제한
 from django.core.validators import MaxValueValidator, MinValueValidator
+from imagekit.models import ProcessedImageField
+from imagekit.processors import Thumbnail
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -9,10 +11,20 @@ class Profile(models.Model):
     age = models.IntegerField(default=25)
     occupation = models.CharField(max_length=200)
     group = models.IntegerField(default=0)
+    description = models.CharField(max_length=200, default='')
+    image = ProcessedImageField(
+		processors = [Thumbnail(200, 200)], # 처리할 작업 목룍
+		format = 'JPEG',					# 최종 저장 포맷
+		options = {'quality': 80},
+        blank=True
+    )
+    recommend_user = models.CharField(max_length=500)
+    # 구독
+    subscription = models.BooleanField(default=False)
+    subscription_date = models.CharField(default='', max_length=200)
 
 #  wrapper for create user Profile
 def create_profile(**kwargs):
-
     user = User.objects.create_user(
         username=kwargs['username'],
         password=kwargs['password'],
@@ -33,6 +45,11 @@ class Movie(models.Model):
     title = models.CharField(max_length=200)
     genres = models.CharField(max_length=500)
     group = models.IntegerField(default=0)
+    poster_url = models.TextField(default='')
+    backdrop_url = models.TextField(default='')
+    overview = models.TextField(default='')
+    adult = models.BooleanField(default=False)
+    recommend_movie = models.CharField(max_length=500)
 
     @property
     def genres_array(self):
@@ -48,6 +65,7 @@ class Rating(models.Model):
     rating_date = models.CharField(max_length=200)
 
 class ClusterModel(models.Model):
+    cluster_choice = models.BooleanField(default=True)
     based = models.CharField(max_length=30)
     method = models.IntegerField(
         default=1,
