@@ -9,7 +9,7 @@
           <div class="mainPage-body__sub">
             {{item.sub}}
           </div>
-          <div class="btn btn--primary btn--md" @click="go()">회원가입</div>
+          <!-- <div class="btn btn--primary btn--md" @click="go()">회원가입</div> -->
         </div>
         <div>
           
