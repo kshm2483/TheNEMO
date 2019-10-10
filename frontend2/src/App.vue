@@ -6,7 +6,7 @@
         <div class="btn btn--primary btn--lg" @click="goSubscription()">구독</div>
       </ul>
     </div>
-    <!-- <header class="navBar"  :class="{navBar__down : (whereScroll !== 0) && (userDropdown === false), navBar__notHome : isNotInConfig()}" >
+    <header class="navBar"  :class="{navBar__down : (whereScroll !== 0) && (userDropdown === false), navBar__notHome : isNotInConfig()}" >
       <nav class="navItems">
         <div class="navItems__title">
           <div class="navItems__option" @click="checkLoginANDgo()">NEMO</div>
@@ -44,7 +44,7 @@
           <router-link :to="{ name: 'Sign' }" v-if="!isNotInConfig()">Login</router-link>
         </div>
       </nav>
-    </header> -->
+    </header>
         <ul class="divFocus" v-if="userDropdown === true" ref="search" @blur="userDropdown = !userDropdown" tabindex="1">
           <p style="cursor: default; color:white;">{{userInfo}}</p>
           <div class="separater"></div>
