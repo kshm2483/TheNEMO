@@ -127,7 +127,7 @@ export default {
           this.nickName = ''
           this.password = ''
         } else {
-          this.$router.push('/profile')
+          this.$router.push('/newrating')
         }
       } else {
         alert('error')

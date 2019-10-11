@@ -27,4 +27,17 @@ const router = new VueRouter({
   },
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.name == 'Home' || to.name == 'Sign') {
+    if (sessionStorage.hasOwnProperty('drf')) {
+      return next('/movie')
+    }
+  } else {
+    if (!sessionStorage.hasOwnProperty('drf')) {
+      return next('/')
+    }
+  }
+  return next()
+})
+
 export default router

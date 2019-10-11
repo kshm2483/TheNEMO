@@ -16,11 +16,11 @@ def movies(request):
             movie = get_object_or_404(Movie, pk=id)
             serializer = MovieDetailSerializer(movie)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
-        
+
         title = request.GET.get('title', None)
         genre = request.GET.get('genre', None)
         movies = Movie.objects.all()
-        
+
         # profile에 있는 유저정보에서 나이, 성별, 직업을 가져오기
         age = request.GET.get('age', None)
         gender = request.GET.get('gender', None)

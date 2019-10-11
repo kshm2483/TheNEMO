@@ -22,8 +22,8 @@
             </div>
           </div>
           <!-- 유저 명 / 성별 / 수정 버튼 끝 -->
-          
-          <div class="separater"></div> 
+
+          <div class="separater"></div>
 
           <div class="profile-banner-right__body">
             <!-- 유저 상세 정보 상단  -->
@@ -35,7 +35,7 @@
             <!-- 유저 상세 정보 하단  -->
             <div class="profile-banner-right__body-bottom">
               <p><b>한줄 코멘트</b></p>
-              
+
             </div>
           </div>
         </div>
@@ -53,74 +53,81 @@
       <!-- 프로필 하단 컴포넌트 시작 -->
         <!-- 유저가 본 영화 목록 시작 -->
         <div class="profile-myMovie" v-if="checkToggle === 1">
-            <div v-for="item in movieItems" :key="item.genre">
-              <MovieList :id="item.genre" :item="item"/>
-              <transition name="fade" mode="out-in">
-                <MovieCard :varified="item.genre"/>
-              </transition>
-            </div>
+          <MovieImg v-for="movie in movieItems" :key="movie.id" :imgData="{ imgSrc: movie.poster_url, title: movie.title, id: movie.id, genres: movie.genres, varified: 'none', overview: movie.overview }"/>
         </div>
         <!-- 유저가 본 영화 목록 끝 -->
 
         <!-- 유저와 유사한 유저 목록 시작 -->
         <div class="profile-similarUser" v-if="checkToggle === 2">
+          <!-- i (similar user id 값)만 UserCard에 전달해주는 것임) -->
+          <!-- userData.similaruser.slice(0,5) -->
+          <UserCard v-for="i in userData.similaruser" :key="i" style="display:inline-block;" :simUserId="i"/>
         </div>
         <!-- 유저와 유사한 유저 목록 끝 -->
       <!-- 프로필 하단 컴포넌트 시작 -->
     </div>
+    <div class="lds-bg"/>
   </div>
 </template>
 
 <script>
-import MovieList from '@/components/movies/MovieList'
-import MovieCard from '@/components/movies/MovieCard'
-import { mapState, mapActions } from "vuex";
+import api from '@/api'
+import UserCard from '@/components/profile/UserCard'
+import MovieImg from '@/components/movies/MovieImg'
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
-components: {
-    MovieList,
-    MovieCard
+  components: {
+    UserCard,
+    MovieImg
   },
- data() {
-   return{
-     user: this.$route.params.user_id,
+  data() {
+    return{
+      user: this.$route.params.user_id,
 
-     checkToggle : 1,
+      checkToggle : 1,
 
-     userInfo: [
-       {imgurl:require("@/assets/image/defaultUserImage.jpg")},
-     ],
+      userInfo: [
+        {imgurl:require("@/assets/image/defaultUserImage.jpg")},
+      ],
 
-     movieItems: [{genre:'action', items: [1,2,3,4,5,6,7,8,9,10]}]
+      movieItems: [],
+      selectInfo: {}
    }
  },
-  mounted() {
-    this.loadUser(this.user)
-    // MovieImg.vue => 영화 정보 오픈 시 스크롤
-    this.$EventBus.$on('movieInfoActive', (payload) => {
-      this.scrollCard(payload.varified)
-    })
-  },
-  computed: {
+ computed: {
+    setUserData() {
+      return this.$store.state.userData
+    },
     ...mapState({
       userData: state => state.userData,
       userList: state => state.userData.similaruser,
-      movieList: state => state.userData.ratingmovie,
+      movieList: state => state.movieSearchList
     }),
-    
+    ...mapGetters({
+      myMovie: 'getUserMovieData'
+    })
+  },
+  watch: {
+    movieList() {
+      this.setMovieItems()
+    }
+  },
+  mounted() {
+    this.loadUser(this.user),
+    this.searchMovies()
   },
   methods: {
     ...mapActions({
-      loadUser: 'searchProfile'
-    }),
-    goTo() {
-      this.$router.push('/')
+        loadUser: 'searchProfile'
+      }),
+    ...mapActions(["searchMovies"]),
+    setMovieItems() {
+      this.setUserData.ratingmovie.forEach((el) => { this.movieItems.push(this.movieList.find(movie => movie.id === el))})
     },
-    scrollCard(locationId) {
-      const element = document.getElementById(locationId)
-      const elemRect = element.getBoundingClientRect()
-      const offset = elemRect.bottom + window.pageYOffset - 100
-      window.scrollTo({top: offset, behavior: 'smooth'})
+    async selectMovie(id) {
+      const resp = await api.searchMovies({'id': id})
+      this.selectInfo = resp.data
     },
     Go() {
       this.$emit('transForm');
@@ -128,9 +135,4 @@ components: {
     },
   }
 }
-
 </script>
-
-<style scoped lang="scss">
-
-</style>

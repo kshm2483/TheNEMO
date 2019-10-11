@@ -1,73 +1,92 @@
 <template>
   <div class="moviePage">
       <span class="newRatingTitle">영화 평점 주세요</span>
-      <newRatingCategory :movieItems="movieItems"/>
+      <newRatingCategory :movieItems="searchMovie"/>
       <div class="lds-bg">
         <div v-if="loadScroll" class="lds-dual-ring"></div>
       </div>
+      <footer class="nr--footer">
+        <span> 평점을 준 갯수 {{cntRated}}</span>
+        <p>평점을 준 영화가 많아 질수록 추천 영화의 정확도가 높아집니다.</p>
+        <div class="btn btn--primary" @click="goMain()">여기까지</div>
+        <div></div>
+      </footer>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
 import newRatingCategory from '@/components/newrating/newRatingCategory'
+import { mapActions } from "vuex"
 
 export default {
   components: {
     newRatingCategory
   },
   data: () => ({
-    movieItems: [{genre:'action', items: [1,2,3,4,5,6,7,8,9,10,11,12]}],
     loadCall: false,
     loadScroll: false,
-    persons: []
+    persons: [],
+    searchMovie: [],
+    cntRated : 0,
   }),
   mounted() {
+    this.searchMovies()
     // MovieImg.vue => 영화 정보 오픈 시 스크롤
-    this.$EventBus.$on('movieInfoActive', (payload) => {
-      this.scrollCard(payload.varified)
-    })
-    this.scroll(this.person)
+    // this.$EventBus.$on('movieInfoActive', (payload) => {
+    //   this.scrollCard(payload.varified)
+    // })
+    this.scroll(this.searchMovie)
+  },
+  created() {
+    this.$EventBus.$on('increment', (text) => {
+    this.cntRated += text;
+});
   },
   beforeMount() {
-    this.getInitialUsers()
+    this.getInitialMovies()
   },
   methods: {
-    scrollCard(locationId) {
-      const element = document.getElementById(locationId)
-      const elemRect = element.getBoundingClientRect()
-      const offset = elemRect.bottom + window.pageYOffset - 100
-      window.scrollTo({top: offset, behavior: 'smooth'})
-    },
-    getInitialUsers () {
-      for (var i = 0; i < 5; i++) {
-        axios.get(`https://randomuser.me/api/`)
-          .then(response => {
-            this.persons.push(response.data.results[0])
+    ...mapActions(["searchMovies"]),
+    goMain() {
+        this.$router.push({
+            name : 'Movie'
           })
+      },
+    getInitialMovies () {
+      for (var i = 0; i < 12; i++) {
+        this.searchMovie.push(this.$store.state.movieSearchList[i])
       }
     },
-    scroll(person) {
+    scroll(movieItem) {
       window.onscroll = () => {
         let bOfW = Math.round(document.documentElement.scrollTop + window.innerHeight) >= document.documentElement.offsetHeight
         if (bOfW && this.loadCall === false) {
           this.loadCall = true
           this.loadScroll = true
-          axios.get(`https://randomuser.me/api/`)
-            .then(response => {
-              let i = this.movieItems[0].items.length+1
-              let a = i
-              for (a; a < i+12; a++) {
-                this.movieItems[0].items.push(a)
-              }
-              this.loadScroll = false
-              this.loadCall = false
-            })
-
+          // axios.get(`https://randomuser.me/api/`)
+          //   .then(response => {
+          //     let i = this.movieItems[0].items.length+1
+          //     let a = i
+          //     for (a; a < i+12; a++) {
+          //       this.movieItems[0].items.push(a)
+          //     }
+          //     this.loadScroll = false
+          //     this.loadCall = false
+          //   })
+          let i = movieItem.length
+          let a = i
+          for ( a; a < i+12; a++ ) {
+            movieItem.push(this.$store.state.movieSearchList[a])
+          }
+          setTimeout(() => {
+            this.loadScroll = false
+            this.loadCall = false
+          }, 1000)
         }
       }
     }
-  }
+  },
+
 }
 </script>
 <style lang="scss">

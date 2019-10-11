@@ -19,6 +19,7 @@ class Profile(models.Model):
         blank=True
     )
     recommend_user = models.CharField(max_length=500)
+    your_taste_movie = models.TextField()
     # 구독
     subscription = models.BooleanField(default=False)
     subscription_date = models.CharField(default='', max_length=200)
@@ -35,7 +36,8 @@ def create_profile(**kwargs):
         user=user,
         gender=kwargs['gender'],
         age=kwargs['age'],
-        occupation=kwargs['occupation']
+        occupation=kwargs['occupation'],
+        your_taste_movie=kwargs['your_taste_movie']
     )
 
     return profile

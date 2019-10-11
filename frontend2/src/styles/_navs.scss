@@ -61,8 +61,8 @@
           border-radius: 0;
           color: $white;
           position: absolute;
-          top: 4vh;
-          left: 50vw;
+          top: 32%;
+          right: 29%;
           transition: all .15s ease;
           &:focus {
             outline: none;
@@ -113,4 +113,20 @@
     color: red;
   }
 }
-
+.testdiv {
+  max-width: 350px;
+  min-width: 350px;
+  height: 200px;
+  top: 10%;
+  right: 27%;
+  background-color: rgb(128, 128, 128);
+  overflow-y: scroll;
+  position: fixed;
+  p {
+    color: $white;
+    margin: 0;
+    &:hover {
+      background-color: #3385ff;
+    }
+  }
+}

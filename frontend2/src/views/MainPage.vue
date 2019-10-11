@@ -23,9 +23,9 @@ export default {
   data() {
     return{
       sectionImg: [
-        {url:require("@/assets/image/breaking.jpg"), name:'breaking', text: '40개 평가 기반 최고의 추천 엔진', sub:'B와 D사이는 C'},
-        {url:require('@/assets/image/gump.jpg'), name:'gump', text: '그럼요 당연하죠 네네치킨', sub:'지금까지 이런 치킨은 없었다.'},
-        {url:require('@/assets/image/Lisbon.jpg'), name:'lisbon', text: '삼귀다, 오저치고', sub:'이게 나라냐'},
+        {url:require("@/assets/image/breaking.jpg"), name:'breaking', text: '1,346,874개 평가 기반 최고의 추천 엔진', sub:'5가지 방식의 다양한 알고리즘 적용'},
+        {url:require('@/assets/image/gump.jpg'), name:'gump', text: '당신만을 위한 추천 영화', sub:'지금까지 이런 추천 서비스는 없었다!'},
+        {url:require('@/assets/image/Lisbon.jpg'), name:'lisbon', text: '어멋! 이건 구독해야 해!', sub:'지금 바로 구독하세요.'},
       ]
     }
   },

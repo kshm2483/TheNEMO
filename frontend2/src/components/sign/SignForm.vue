@@ -31,6 +31,9 @@ export default {
         this.nickName = ''
         this.password = ''
       } else {
+        this.$store.dispatch('searchProfile', {
+          'username': result
+        })
         this.$router.push('/movie')
       }
     },

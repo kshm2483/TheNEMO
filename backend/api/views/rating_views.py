@@ -2,7 +2,7 @@ from datetime import datetime
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view
-from api.models import Rating
+from api.models import Rating, Movie, User
 from api.serializers import RatingSerializer
 from rest_framework.response import Response
 
@@ -23,20 +23,34 @@ def rating_many(request):
 
 @api_view(['POST', 'PATCH'])
 def rating(request):
+    
     if request.method == "POST":
-        serializer = RatingSerializer(data=request.data)
-        if serializer.is_valid():
-            rating = serializer.save(rating_date = round(datetime.now().timestamp()))
-            return Response(RatingSerializer(rating).data, status=status.HTTP_201_CREATED)
+        user = request.data['user']
+        movie = request.data['movie']
+        if Rating.objects.filter(user=user, movie=movie):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else :
+            serializer = RatingSerializer(data=request.data)
+            if serializer.is_valid():
+                rating = serializer.save(user=User.objects.get(id=user), movie=Movie.objects.get(id=movie), rating_date = round(datetime.now().timestamp()))
+                return Response(RatingSerializer(rating).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     if request.method == "PATCH":
-        id = request.data.get('id')
-        rating = get_object_or_404(Rating, id=id)
-        serializer = RatingSerializer(rating, data=request.data, partial=True)
-        if serializer.is_valid():
-            rating = serializer.save(rating_date = round(datetime.now().timestamp()))
-            return Response(RatingSerializer(rating).data)
+        user = request.data.get('user')
+        movie = request.data.get('movie')
+        if Rating.objects.filter(user=user, movie=movie):
+            rating = get_object_or_404(Rating, user=user, movie=movie)
+            serializer = RatingSerializer(rating, data=request.data, partial=True)
+            if serializer.is_valid():
+                rating = serializer.save(rating_date = round(datetime.now().timestamp()))
+                return Response(RatingSerializer(rating).data)
+        else :
+            serializer = RatingSerializer(data=request.data)
+            if serializer.is_valid():
+                rating = serializer.save(user=User.objects.get(id=user), movie=Movie.objects.get(id=movie), rating_date = round(datetime.now().timestamp()))
+                return Response(RatingSerializer(rating).data, status=status.HTTP_201_CREATED)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

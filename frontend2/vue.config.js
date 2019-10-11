@@ -22,6 +22,7 @@ module.exports = {
                       @import "@/styles/_admin.scss";
                       @import "@/styles/_profile.scss";
                       @import "@/styles/_sign.scss";
+                      @import "@/styles/_subscription.scss";
                       @import "@/styles/_fa-icon.scss";
                       @import "@/styles/_ratingsNew.scss";
                       @import "@/styles/_shared-styles.scss";`

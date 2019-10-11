@@ -1,8 +1,8 @@
 <template>
-  <div class="moviePage">
+  <div class="moviePage" @wheel="scroll()">
     <div>
       <MovieCateForm/>
-      <MovieCategory :movieItems="movieItems"/>
+      <MovieCategory :movieItems="showSearchMovies"/>
       <div class="lds-bg">
         <div v-if="loadScroll" class="lds-dual-ring"></div>
       </div>
@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import MovieCateForm from '@/components/movies/MovieCategoryForm'
 import MovieCategory from '@/components/movies/MovieCategoryList'
 
@@ -21,54 +20,84 @@ export default {
     MovieCategory
   },
   data: () => ({
-    movieItems: [{genre:'action', items: [1,2,3,4,5,6,7,8,9,10,11,12]}],
     loadCall: false,
     loadScroll: false,
-    persons: []
+
+    searchMovies: [],
+    showSearchMovies: [],
+
+    throwData: false,
   }),
   mounted() {
-    // MovieImg.vue => 영화 정보 오픈 시 스크롤
-    this.$EventBus.$on('movieInfoActive', (payload) => {
-      this.scrollCard(payload.varified)
+    // App.vue => 영화 정보 받음
+    this.$EventBus.$on('movieSearchList', (payload) => {
+      if (payload.str === null || payload.str === '') {
+        this.getInitialMovies()
+      } else {
+        this.setSearchMovies(payload.payload)
+      }
     })
-    this.scroll(this.person)
+    // MovieCategoryForm.vue => gere filter
+    this.$EventBus.$on('selectGenre', (payload) => {
+      this.genreFilter(payload)
+    })
+    this.scroll()
   },
   beforeMount() {
-    this.getInitialUsers()
+    this.getInitialMovies()
   },
   methods: {
-    scrollCard(locationId) {
-      const element = document.getElementById(locationId)
-      const elemRect = element.getBoundingClientRect()
-      const offset = elemRect.bottom + window.pageYOffset - 100
-      window.scrollTo({top: offset, behavior: 'smooth'})
+    getInitialMovies () {
+      this.searchMovies = this.$store.state.movieSearchList
+      this.showSearchMovies = this.$store.state.movieSearchList.slice(0, 12)
+      this.throwData = false
     },
-    getInitialUsers () {
-      for (var i = 0; i < 5; i++) {
-        axios.get(`https://randomuser.me/api/`)
-          .then(response => {
-            this.persons.push(response.data.results[0])
-          })
+    setSearchMovies(movieList) {
+      this.searchMovies = movieList
+      if ( movieList.length > 11 ) {
+        this.showSearchMovies = this.searchMovies.slice(0, 12)
+      } else {
+        this.showSearchMovies = this.searchMovies
+        this.throwData = true
       }
     },
-    scroll(person) {
-      window.onscroll = () => {
+    scroll() {
         let bOfW = Math.round(document.documentElement.scrollTop + window.innerHeight) >= document.documentElement.offsetHeight
-        if (bOfW && this.loadCall === false) {
+        if ( bOfW && this.loadCall === false && this.throwData === false ) {
           this.loadCall = true
           this.loadScroll = true
-          axios.get(`https://randomuser.me/api/`)
-            .then(response => {
-              let i = this.movieItems[0].items.length+1
-              let a = i
-              for (a; a < i+12; a++) {
-                this.movieItems[0].items.push(a)
-              }
-              this.loadScroll = false
-              this.loadCall = false
-            })
-
+          let i = this.showSearchMovies.length
+          let a = i
+          if ( a+12 > this.searchMovies.length ) {
+            for ( a; a < this.searchMovies.length; a++) {
+              this.showSearchMovies.push(this.searchMovies[a])
+            }
+            this.throwData = true
+          } else {
+            for ( a; a < i+12; a++ ) {
+              this.showSearchMovies.push(this.searchMovies[a])
+            }
+          }
+          setTimeout(() => {
+            this.loadScroll = false
+            this.loadCall = false
+          }, 1000)
         }
+    },
+    genreFilter(genre) {
+      let filterGenre
+      if (genre != 'All genres') {
+        filterGenre = this.searchMovies.filter((item) => {
+          return item.genres.includes(genre)
+        })
+      } else {
+        filterGenre = this.searchMovies
+      }
+      if (filterGenre.length > 11) {
+        this.showSearchMovies = filterGenre.slice(0, 12)
+      } else {
+        this.showSearchMovies = filterGenre
+        this.throwData = true
       }
     }
   }

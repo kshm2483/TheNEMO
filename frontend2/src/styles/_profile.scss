@@ -1,20 +1,21 @@
 .profile {
-    height: 100vh; 
+    // height: 100vh;
     padding: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
     user-select: none;
-  
+    position: relative;
+
     color: white;
-  
+
     &-banner {
       display: flex;
       align-items: center;
       width: 84vw;
       height: 250px;
       padding: 20px;
-  
+
       &__image{
         display: flex;
         width: 10vw;
@@ -23,28 +24,28 @@
         border : 10px solid red;
         overflow: hidden;
       }
-  
+
       &-right{
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-  
+
         width: 70vw;
         height: 100%;
         margin: var(--space-sm);
-  
+
         &__head {
           width: 100%;
           display: flex;
           justify-content: space-between;
-  
+
           .username {
             font-size: 2rem;
             font-weight: 700;
           }
         }
-  
+
         &__body {
           display: flex;
           flex-direction: column;
@@ -52,20 +53,20 @@
           align-items: flex-start;
           width: 100%;
           height: 50%;
-  
+
           font-size: 1.5rem;
-  
+
           &-top{
             display: flex;
             text-align: start;
             width: 100%;
-  
+
             p {
               width: 50%;
               margin: 0px;
             }
           }
-  
+
           &-bottom{
             text-align: start;
             width: 100%;
@@ -73,18 +74,21 @@
         }
       }
     }
-  
+
     &-myMovie {
-      width: 84vw;
-      height: 400px;
+      width: 85vw;
+      height: 100%;
       padding: 20px;
+      position: relative;
+      color: black;
     }
-  
+
     &-similarUser {
       width: 84vw;
-      height: 400px;
+      height: 100%;
       padding: 20px;
-      background-color: darkcyan;
+      position: relative;
+      // background-color: yellowgreen;
     }
 
     &-edit {
@@ -92,7 +96,7 @@
         min-width: 900px;
         &__list{
             font-size: 30px;
-            font-weight: 700;  
+            font-weight: 700;
             padding-left: 20px;
             padding-right: 20px;
 
@@ -105,7 +109,7 @@
             }
             .expand {
                 text-align: start;
-                font-size: 25px !important; 
+                font-size: 25px !important;
                 margin-bottom: var(--space-sm);
 
                 ul {
@@ -116,7 +120,7 @@
                       margin-top: var(--space-sm);
                   }
                 }
-                
+
                 &__img{
                     display: flex;
                     align-items: center;
@@ -135,13 +139,13 @@
                     .file-select {
                       display: flex;
                       flex-direction: column;
-                      justify-content: flex-end; 
+                      justify-content: flex-end;
                       text-align: start;
 
                       height: 100%;
                       margin-left: var(--space-sm);
                     }
-                    
+
                     /* Don't forget to hide the original file input! */
                     label > input[type="file"] {
                       display: none;
@@ -151,18 +155,124 @@
         }
     }
   }
-  
+
   .profileToggle {
     width: 84vw;
     padding: 20px;
     text-align: start;
     font-size: 2rem;
-  
+
     p {
       margin: 0px;
     }
-  
+
     &__select{
       color: red;
     }
   }
+  // UserCard
+  .SimilarUserInfo {
+    display: flex;
+    flex-direction: column;//방향을 세로로 바꾸기
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--space-sm);
+    padding:5px;
+
+    height: 250px;
+    width: 180px;
+    margin: {
+      right:5px;
+      left:5px;
+      top:5px;
+      bottom:5px;
+    }
+    background: white;
+    color: $white;
+  h3 {
+    text-align: left;
+    overflow: hidden;
+    color: black;
+    margin: {
+      top: 0px;
+      left: 10px;
+      rignt: 10px;
+    }
+   }
+  h5 {
+    text-align: left;
+    overflow: hidden;
+    color: rgb(116, 116, 116);
+    margin: {
+      top: 0px;
+      left:5px;
+      right:5px;
+      bottom: 3px;
+     }
+  }
+  span {
+     display: flex;
+      justify-content: center;
+    text-align: left;
+    overflow: hidden;
+    color: rgb(116, 116, 116);
+    margin: {
+      top: 0px;
+      left:10px;
+      right:10px;
+     }
+  }
+  p {
+    text-align: left;
+    overflow: hidden;
+    color: rgb(116, 116, 116);
+    margin: {
+      top: 0px;
+      left:1px;
+      right:1px;
+      bottom: 1px;
+     }
+  }
+
+
+
+
+
+    &-banner {
+      display: flex;
+      justify-content: center;
+      width: 160px;
+      height: 80px;
+      margin: {
+        top: 5px;
+        bottom: 5px;
+        left: 5px;
+        right: 5px;
+
+      }
+
+
+      &_img{
+          display: flex;
+          align-items: center;
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+          border : 3px solid red;
+          overflow: hidden;
+
+        }
+
+    }
+  }
+// // DETAILS
+// .Details {
+//   width: 130px;
+//   height: 100px;
+//   margin: {
+//     right:5px;
+//     left: 5px;
+//     top: 2px;
+//   }
+
+// }

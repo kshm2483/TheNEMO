@@ -1,7 +1,7 @@
 export default {
   selectedMovie : ( state, payload ) => {
     if (payload) {
-      state.selectedMovie.Activated = true
+      state.selectedMovie.Activated = payload.varified
     } else {
       state.selectedMovie.Activated = false
     }

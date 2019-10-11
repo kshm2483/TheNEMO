@@ -23,4 +23,8 @@
   &__trans {
     background-color: $trans;
   }
+  &__1 {
+    margin-top:var(--space-xxxxs);
+    margin-bottom:var(--space-xxxxs);
+  }
 }

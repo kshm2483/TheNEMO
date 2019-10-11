@@ -1,8 +1,16 @@
-# Movie Recommendation project
+<p align="center">이미지</p><h1 align="center">NEMO</h1><p align="center">
+    Movie Recommendation Project
+</p>
 
-## Getting Started
 
-### Prerequisites
+
+<h1>Table of Contents</h1>
+
+[TOC]
+
+# Getting Started
+
+## Prerequisites
 
 - `front` 폴더에서 npm을 install 합니다.
 
@@ -18,19 +26,18 @@
 
 
 
-### Backend setup
+## Backend setup
 
-- model 작업을 위한 migration이 필요합니다.
+- model 작업을 위한 migrate가 필요합니다.
   `backend` > `manage.py` 파일을 실행시킵니다.
 
   ```bash
-  $ python manage.py makemigrations
   $ python manage.py migrate
   ```
 
 
 
-### Data setup
+## Data setup
 
 - `backend` > `db.json` 파일을 load시킵니다.
 
@@ -42,7 +49,7 @@
 
 
 
-## Deployment
+# Deployment
 
 - `backend`서버를 구동시킵니다. `backend`폴더 수준에서 명령어를 입력합니다.
 
@@ -60,13 +67,13 @@
 
 
 
-## Project Description
+# Project Description
 
-### Model structure
+## Model structure
 
 ![image](/uploads/0be39f97fe1031dd2502d469a8501aa0/image.png)
 
-#### Profile
+### Profile
 
 | Field Name        | Data Type | Example   | Description                                 | Result              |
 | ----------------- | --------- | --------- | ------------------------------------------- | ------------------- |
@@ -83,7 +90,7 @@
 
 
 
-#### Movie
+### Movie
 
 | Field Name | Data Type | Example | Description | Result |
 | ---------- | --------- | ------- | ----------- | ------ |
@@ -99,7 +106,7 @@
 
 
 
-#### Rating
+### Rating
 
 | Field Name  | Data Type | Example   | Description                 | Result              |
 | ----------- | --------- | --------- | --------------------------- | ------------------- |
@@ -110,7 +117,7 @@
 
 
 
-#### ClusterModel
+### ClusterModel
 | Field Name     | Data Type | Example | Description                                                  | Result          |
 | -------------- | --------- | ------- | ------------------------------------------------------------ | --------------- |
 | cluster_choice | Bool      | True    | cluster모델이 선택되어있는지 확인하는 column, <br />True : cluster 모델 선택되어 있음<br />False : KNN, matrix factorization등 다른 recommend model 선택되어있음 | True, False     |

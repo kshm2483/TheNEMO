@@ -7,18 +7,23 @@ urlpatterns = [
     url('auth/signup-many/$', auth_views.signup_many, name='sign_up_many'),
     url('auth/signup/$', auth_views.signup, name='sign_up'),
     url('rating_many/$', rating_views.rating_many, name='rating_list'),
-    url('cluster/', clustering_views.setup, name="cluster_setup"),
-
-    url('movies/$', movie_views.movies, name='movie_list'),
-    
-    url('rating/$', rating_views.rating, name='rating'),
-
-    path('profile/<int:user_id>', auth_views.profile, name='profile'),
-    url('auth/login', auth_views.userLogin, name='login'),
-    url('auth/logout', auth_views.userLogout, name='logout'),
 
     url('cluster/user', clustering_views.cluster_user_method, name="cluster_user_method"),
     url('cluster/movie', clustering_views.cluster_movie_method, name="cluster_movie_method"),
+    url('cluster/custom', clustering_views.user_customized_recommendation, name="user_customized_recommendation"),
+
+    url('cluster/', clustering_views.setup, name="cluster_setup"),
+
+    url('movies/$', movie_views.movies, name='movie_list'),
+
+    url('rating/$', rating_views.rating, name='rating'),
+
+    path('profile/<int:user_id>/newmovies', auth_views.profileUnRatedMovieSearch, name='profileUnRatedMovieSearch'),
+    path('profile/<int:user_id>', auth_views.profile, name='profile'),
+    path('profile/', auth_views.profileSearch, name='profileSearch'),
+    url('auth/login', auth_views.userLogin, name='login'),
+    url('auth/logout', auth_views.userLogout, name='logout'),
+
 
     path('subscription/<int:user_id>', auth_views.subscription, name="subscription"),
 ]
