@@ -13,7 +13,6 @@
         </div>
         <div class="navItems__body">
           <div>
-            <!-- <div v-if="isNotInConfig() && searchToggle === true" @click="searchToggle = !searchToggle">검색</div> -->
             <fa-icon
               icon="search"
               v-if="isNotInConfig() && searchToggle === true"
