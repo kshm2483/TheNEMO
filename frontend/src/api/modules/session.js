@@ -1,8 +1,12 @@
 const set = (name, token) => {
     sessionStorage.setItem(name, JSON.stringify(token))
 }
+const get = () => {
+    return JSON.parse(sessionStorage.getItem('drf')).username
+}
 const destroy = () => {
     sessionStorage.removeItem("drf")
+    sessionStorage.removeItem("token")
 }
 const check = () => {
     const key = sessionStorage.getItem("drf")
@@ -15,6 +19,7 @@ const checkStaff = () => {
 
 export default {
     set,
+    get,
     destroy,
     check,
     checkStaff
